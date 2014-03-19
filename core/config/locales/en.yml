@@ -346,6 +346,15 @@ en:
         taxonomies: Taxonomies
         taxons: Taxons
         users: Users
+      user:
+        account: Account
+        addresses: Addresses
+        items: Items
+        items_purchased: Items Purchased
+        order_history: Order History
+        order_num: "Order #"
+        orders: Orders
+        user_information: User Information
     administration: Administration
     agree_to_privacy_policy: Agree to Privacy Policy
     agree_to_terms_of_service: Agree to Terms of Service
@@ -377,6 +386,7 @@ en:
     authorization_failure: Authorization Failure
     auto_capture: Auto Capture
     available_on: Available On
+    average_order_value: Average Order Value
     avs_response: AVS Response
     back: Back
     back_end: Backend
@@ -631,6 +641,7 @@ en:
     intercept_email_address: Intercept Email Address
     intercept_email_instructions: Override email recipient and replace with this address.
     internal_name: Internal Name
+    invalid_credit_card: Invalid credit card.
     invalid_payment_provider: Invalid payment provider.
     invalid_promotion_action: Invalid promotion action.
     invalid_promotion_rule: Invalid promotion rule.
@@ -653,6 +664,7 @@ en:
     last_name: Last Name
     last_name_begins_with: Last Name Begins With
     learn_more: Learn More
+    lifetime_stats: Lifetime Stats
     line_item_adjustments: "Line item adjustments"
     list: List
     listing_countries: Listing Countries
@@ -693,6 +705,7 @@ en:
       all: All
       none: None
     max_items: Max Items
+    member_since: Member Since
     meta_description: Meta Description
     meta_keywords: Meta Keywords
     metadata: Metadata
@@ -762,6 +775,7 @@ en:
       product_not_deleted: Product could not be deleted
       variant_deleted: Variant has been deleted
       variant_not_deleted: Variant could not be deleted
+    num_orders: "# Orders"
     on_hand: On Hand
     open: Open
     open_all_adjustments: Open All Adjustments
@@ -1062,6 +1076,7 @@ en:
     stock_location: Stock Location
     stock_location_info: Stock location info
     stock_locations: Stock Locations
+    stock_locations_need_a_default_country: You must create a default country before creating a stock location.
     stock_management: Stock Management
     stock_management_requires_a_stock_location: Please create a stock location in order to manage stock.
     stock_movements: Stock Movements
@@ -1111,6 +1126,7 @@ en:
     to_add_variants_you_must_first_define: To add variants, you must first define
     total: Total
     total_price: Total price
+    total_sales: Total Sales
     track_inventory: Track Inventory
     tracking: Tracking
     tracking_number: Tracking Number

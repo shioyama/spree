@@ -116,6 +116,8 @@ module Spree
       return if source_attributes.nil?
       if payment_method and payment_method.payment_source_class
         self.source = payment_method.payment_source_class.new(source_attributes)
+        self.source.payment_method_id = payment_method.id
+        self.source.user_id = self.order.user_id if self.order
       end
     end
 
@@ -173,8 +175,19 @@ module Spree
       end
 
       def update_order
-        order.payments.reload
-        order.update!
+        if self.completed?
+          order.updater.update_payment_total
+        end
+
+        if order.completed?
+          order.updater.update_payment_state
+          order.updater.update_shipments
+          order.updater.update_shipment_state
+        end
+
+        if self.completed? || order.completed?
+          order.persist_totals
+        end
       end
 
       # Necessary because some payment gateways will refuse payments with

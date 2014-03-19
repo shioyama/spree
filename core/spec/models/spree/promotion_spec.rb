@@ -37,12 +37,13 @@ describe Spree::Promotion do
     end
   end
 
-  describe "#delete" do
+  describe "#destroy" do
     let(:promotion) { Spree::Promotion.create(:name => "delete me") }
 
     before(:each) do
       promotion.actions << Spree::Promotion::Actions::CreateAdjustment.new
       promotion.rules << Spree::Promotion::Rules::FirstOrder.new
+      promotion.save!
       promotion.destroy
     end
 
@@ -55,13 +56,26 @@ describe Spree::Promotion do
     end
   end
 
+  describe "#save" do
+    let(:promotion) { Spree::Promotion.create(:name => "delete me") }
+
+    before(:each) do
+      promotion.actions << Spree::Promotion::Actions::CreateAdjustment.new
+      promotion.rules << Spree::Promotion::Rules::FirstOrder.new
+      promotion.save!
+    end
+
+    it "should deeply autosave records and preferences" do
+      promotion.actions[0].calculator.preferred_flat_percent = 10
+      promotion.save!
+      Spree::Calculator.first.preferred_flat_percent.should == 10
+    end
+  end
+
   describe "#activate" do
     before do
-      @action1 = Spree::Promotion::Actions::CreateAdjustment.create!
-      @action2 = Spree::Promotion::Actions::CreateAdjustment.create!
-      @action1.stub perform: true
-      @action2.stub perform: true
-
+      @action1 = stub_model(Spree::PromotionAction, :perform => true)
+      @action2 = stub_model(Spree::PromotionAction, :perform => true)
       promotion.promotion_actions = [@action1, @action2]
       promotion.created_at = 2.days.ago
 
@@ -265,9 +279,7 @@ describe Spree::Promotion do
     end
 
     it "true if there are no applicable rules" do
-      rule = Spree::PromotionRule.create
-      rule.stub eligible?: true, applicable?: false
-      promotion.promotion_rules = [rule]
+      promotion.promotion_rules = [stub_model(Spree::PromotionRule, :eligible? => true, :applicable? => false)]
       promotion.promotion_rules.stub(:for).and_return([])
       promotion.rules_are_eligible?(promotable).should be_true
     end
@@ -276,23 +288,15 @@ describe Spree::Promotion do
       before { promotion.match_policy = 'all' }
 
       it "should have eligible rules if all rules are eligible" do
-        promo1 = Spree::PromotionRule.create!
-        promo1.stub(eligible?: true, applicable?: true)
-        promo2 = Spree::PromotionRule.create!
-        promo2.stub(eligible?: true, applicable?: true)
-
-        promotion.promotion_rules = [promo1, promo2]
+        promotion.promotion_rules = [stub_model(Spree::PromotionRule, :eligible? => true, :applicable? => true),
+                                     stub_model(Spree::PromotionRule, :eligible? => true, :applicable? => true)]
         promotion.promotion_rules.stub(:for).and_return(promotion.promotion_rules)
         promotion.rules_are_eligible?(promotable).should be_true
       end
 
       it "should not have eligible rules if any of the rules is not eligible" do
-        promo1 = Spree::PromotionRule.create!
-        promo1.stub(eligible?: true, applicable?: true)
-        promo2 = Spree::PromotionRule.create!
-        promo2.stub(eligible?: false, applicable?: true)
-
-        promotion.promotion_rules = [promo1, promo2]
+        promotion.promotion_rules = [stub_model(Spree::PromotionRule, :eligible? => true, :applicable? => true),
+                                     stub_model(Spree::PromotionRule, :eligible? => false, :applicable? => true)]
         promotion.promotion_rules.stub(:for).and_return(promotion.promotion_rules)
         promotion.rules_are_eligible?(promotable).should be_false
       end

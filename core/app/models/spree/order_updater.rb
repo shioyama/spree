@@ -40,7 +40,7 @@ module Spree
     # +adjustment_total+   The total value of all adjustments (promotions, credits, etc.)
     # +total+              The so-called "order total."  This is equivalent to +item_total+ plus +adjustment_total+.
     def update_totals
-      order.payment_total = payments.completed.sum(:amount)
+      update_payment_total
       update_item_total
       update_shipment_total
       update_adjustment_total
@@ -52,8 +52,12 @@ module Spree
       shipments.each { |shipment| shipment.update!(order) }
     end
 
+    def update_payment_total
+      order.payment_total = payments.completed.sum(:amount)
+    end
+
     def update_shipment_total
-      order.shipment_total = shipments.sum("cost + promo_total")
+      order.shipment_total = shipments.sum(:cost)
       update_order_total
     end
 

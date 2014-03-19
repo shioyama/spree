@@ -533,10 +533,29 @@ describe Spree::Payment do
   end
 
   describe "#save" do
-    it "should call order#update!" do
-      payment = Spree::Payment.create(:amount => 100, :order => order)
-      order.should_receive(:update!)
-      payment.save
+    context "completed payments" do
+      it "updates order payment total" do
+        payment = Spree::Payment.create(:amount => 100, :order => order, state: "completed")
+        expect(order.payment_total).to eq payment.amount
+      end
+    end
+
+    context "not completed payments" do
+      it "doesn't update order payment total" do
+        expect {
+          Spree::Payment.create(:amount => 100, :order => order)
+        }.not_to change { order.payment_total }
+      end
+    end
+
+    context "completed orders" do
+      before { order.stub completed?: true }
+
+      it "updates payment_state and shipments" do
+        expect(order.updater).to receive(:update_payment_state)
+        expect(order.updater).to receive(:update_shipment_state)
+        Spree::Payment.create(:amount => 100, :order => order)
+      end
     end
 
     context "when profiles are supported" do
@@ -588,8 +607,10 @@ describe Spree::Payment do
   end
 
   describe "#build_source" do
-    it "should build the payment's source" do
-      params = { :amount => 100, :payment_method => gateway,
+    let(:params) do
+      {
+        :amount => 100,
+        :payment_method => gateway,
         :source_attributes => {
           :expiry =>"1 / 99",
           :number => '1234567890123',
@@ -597,10 +618,20 @@ describe Spree::Payment do
           :name => 'Spree Commerce'
         }
       }
+    end
 
+    it "should build the payment's source" do
       payment = Spree::Payment.new(params)
       payment.should be_valid
       payment.source.should_not be_nil
+    end
+
+    it "assigns user and gateway to payment source" do
+      order = create(:order)
+      source = order.payments.new(params).source
+
+      expect(source.user_id).to eq order.user_id
+      expect(source.payment_method_id).to eq gateway.id
     end
 
     it "errors when payment source not valid" do
