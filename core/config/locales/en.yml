@@ -327,12 +327,6 @@ en:
     adjustment_total: Adjustment Total
     adjustments: Adjustments
     admin:
-      mail_methods:
-        send_testmail: Send Test Mail
-        testmail:
-          delivery_error: Test Mail delivery error
-          delivery_success: Test Mail sent successfully
-          error: ! 'Test Mail error: %{e}'
       tab:
         configuration: Configuration
         option_types: Option Types
@@ -447,6 +441,7 @@ en:
     choose_a_taxon_to_sort_products_for: "Choose a taxon to sort products for"
     choose_currency: Choose Currency
     choose_dashboard_locale: Choose Dashboard Locale
+    choose_location: Choose location
     city: City
     clone: Clone
     close: Close
@@ -588,6 +583,7 @@ en:
       count_on_hand_setter: Cannot set count_on_hand manually, as it is set automatically by the recalculate_count_on_hand callback. Please use `update_column(:count_on_hand, value)` instead.
     expiration: Expiration
     extension: Extension
+    existing_shipments: Existing shipments
     failed_payment_attempts: Failed Payment Attempts
     filename: Filename
     fill_in_customer_info: Please fill in customer info
@@ -688,17 +684,6 @@ en:
     login_name: Login
     logout: Logout
     look_for_similar_items: Look for similar items
-    mail_method_settings: Mail Method Settings
-    mail_methods: Mail Methods
-    mail_settings:
-      auth:
-        none: "None"
-        plain: "Plain"
-        login: "Login"
-        cram_md5: "cram_md5"
-      security:
-        ssl: "SSL"
-        tls: "TLS"
     make_refund: Make refund
     master_price: Master Price
     match_choices:
@@ -735,6 +720,7 @@ en:
     new_return_authorization: New Return Authorization
     new_shipping_category: New Shipping Category
     new_shipping_method: New Shipping Method
+    new_shipment_at_location: New shipment at location
     new_state: New State
     new_stock_location: New Stock Location
     new_stock_movement: New Stock Movement
@@ -1052,15 +1038,6 @@ en:
     site_url: Site URL
     sku: SKU
     slug: Slug
-    smtp: SMTP
-    smtp_authentication_type: SMTP Authentication Type
-    smtp_domain: SMTP Domain
-    smtp_mail_host: SMTP Mail Host
-    smtp_password: SMTP Password
-    smtp_port: SMTP Port
-    smtp_send_all_emails_as_from_following_address: Send all mails as from the following address.
-    smtp_send_copy_to_this_addresses: Sends a copy of all outgoing mails to this address. For multiple addresses, separate with commas.
-    smtp_username: SMTP Username
     source: Source
     special_instructions: Special Instructions
     split: Split

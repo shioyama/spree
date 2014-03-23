@@ -47,9 +47,6 @@ end
 
 require 'spree/core/version'
 
-require 'spree/core/mail_interceptor'
-require 'spree/core/mail_method'
-require 'spree/core/mail_settings'
 require 'spree/core/environment_extension'
 require 'spree/core/environment/calculators'
 require 'spree/core/environment'
@@ -72,6 +69,7 @@ require 'spree/core/controller_helpers'
 require 'spree/core/controller_helpers/strong_parameters'
 require 'spree/core/controller_helpers/ssl'
 require 'spree/core/controller_helpers/search'
+require 'spree/core/importer'
 
 # Hack waiting on https://github.com/pluginaweek/state_machine/pull/275
 module StateMachine

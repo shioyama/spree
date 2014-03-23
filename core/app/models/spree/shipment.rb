@@ -94,7 +94,7 @@ module Spree
     end
 
     def add_shipping_method(shipping_method, selected = false)
-      shipping_rates.create(shipping_method: shipping_method, selected: selected)
+      shipping_rates.create(shipping_method: shipping_method, selected: selected, cost: cost)
     end
 
     def selected_shipping_rate
@@ -165,6 +165,10 @@ module Spree
 
     def display_discounted_cost
       Spree::Money.new(discounted_cost, { currency: currency })
+    end
+
+    def display_final_price
+      Spree::Money.new(final_price, { currency: currency })
     end
 
     def display_item_cost
