@@ -157,7 +157,7 @@ THIS IS THE BEST PRODUCT EVER!
     shared_examples_for "line item descriptions" do
       context 'variant has a blank description' do
         let(:description) { nil }
-        it { should == Spree.t(:product_has_no_description) }
+        it { should == I18n.t(:product_has_no_description) }
       end
       context 'variant has a description' do
         let(:description) { 'test_desc' }
