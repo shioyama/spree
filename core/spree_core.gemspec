@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'highline', '= 1.6.18'
   s.add_dependency 'state_machine', '= 1.1.2'
   s.add_dependency 'ffaker', '~> 1.12.0'
-  s.add_dependency 'paperclip', '~> 2.7.0'
+  s.add_dependency 'paperclip', '~> 3.4.0'
   s.add_dependency 'ransack', '0.7.2'
   s.add_dependency 'activemerchant', '~> 1.34'
   s.add_dependency 'json', '>= 1.5.5'
